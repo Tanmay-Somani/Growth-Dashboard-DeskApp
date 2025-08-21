@@ -2,7 +2,7 @@ import sys
 import json
 import os
 import logging
-import winsound
+# import winsound  <-- REMOVED
 import datetime
 import platform
 import ctypes
@@ -184,14 +184,14 @@ class ProductivityApp(QMainWindow):
         main_layout.addWidget(self.tab_widget)
         
         tabs = {
-            "Dashboard": self._create_dashboard_tab,
-            "RPG Stats": self._create_rpg_tab,
             "Todo List": self._create_todo_list_tab,
+            "RPG Stats": self._create_rpg_tab,
             "Eat the Frog": self._create_eat_the_frog_tab,
             "Eisenhower": self._create_eisenhower_tab,
             "3/3/3": self._create_333_tab,
             "Ivy Lee Method": self._create_ivy_lee_tab,
             "Pomodoro": self._create_pomodoro_tab,
+            "Dashboard": self._create_dashboard_tab,
             "Help": self._create_help_tab
         }
         for name, creator_func in tabs.items():
@@ -463,17 +463,52 @@ class ProductivityApp(QMainWindow):
         help_text = QTextEdit(readOnly=True)
         help_text.setHtml("""
             <h1>Productivity Methods Explained</h1>
-            <p><b>&bull; RPG Stats:</b> Track your personal growth across different life attributes like an RPG character.</p>
-            <p><b>&bull; Todo List:</b> A powerful list to manage daily tasks with priorities and filtering.</p>
-            <p><b>&bull; Eat the Frog:</b> Complete your single most important task for the day.</p>
-            <p><b>&bull; Eisenhower Matrix:</b> Prioritize tasks based on urgency and importance.</p>
-            <p><b>&bull; 3/3/3 Rule:</b> Structure your day with 3 major outcomes, 3 deep work blocks, and 3 maintenance tasks.</p>
-            <p><b>&bull; Ivy Lee Method:</b> List and tackle the six most important tasks for the next day in order.</p>
+            
+            <h2>&bull; RPG Stats</h2>
+            <p>This tab gamifies your personal development. By assigning points (0-10) to different areas of your life each day, you can visually track your growth over time. The goal is to maintain a balanced development, much like leveling up a character in a role-playing game. The generated radar chart provides an instant overview of your focus areas.</p>
+            
+            <h2>&bull; Todo List</h2>
+            <p>A classic but powerful tool for organizing your day. This implementation includes:</p>
+            <ul>
+                <li><b>Priorities (High, Medium, Low):</b> Assign a priority to each task to know what to focus on first.</li>
+                <li><b>Filtering:</b> Quickly switch between viewing all tasks, only active tasks, or only completed tasks.</li>
+                <li><b>Clear Completed:</b> A simple way to clean up your list once tasks are done.</li>
+            </ul>
+            
+            <h2>&bull; Eat the Frog</h2>
+            <p>Based on a quote by Mark Twain, this method involves identifying your single most important and challenging task for the day (the "Frog") and completing it first. The principle is that once you've accomplished the hardest thing, the rest of your day feels easier and you've already secured a significant win, building momentum.</p>
+            
+            <h2>&bull; Eisenhower Matrix</h2>
+            <p>A decision-making tool for prioritizing tasks by urgency and importance, splitting them into four quadrants:</p>
+            <ul>
+                <li><b>Urgent & Important (Do):</b> Tasks you should do immediately.</li>
+                <li><b>Important, Not Urgent (Schedule):</b> Tasks you should schedule a time to do.</li>
+                <li><b>Urgent, Not Important (Delegate):</b> Tasks you can delegate to someone else.</li>
+                <li><b>Not Urgent, Not Important (Delete):</b> Tasks you should eliminate.</li>
+            </ul>
+            <p>You can drag and drop tasks between quadrants as their priority changes.</p>
+            
+            <h2>&bull; 3/3/3 Rule</h2>
+            <p>A method for structuring your day with intentionality. You define:</p>
+            <ul>
+                <li><b>3 Major Outcomes:</b> The most significant results you want to achieve today.</li>
+                <li><b>3 Deep Work Blocks:</b> Specific, focused periods of work dedicated to your most important goals.</li>
+                <li><b>3 Maintenance Tasks:</b> Smaller, necessary chores like answering emails or cleaning up.</li>
+            </ul>
+
+            <h2>&bull; Ivy Lee Method</h2>
+            <p>A century-old method focused on ruthless prioritization. At the end of each day, you list the six most important tasks you need to accomplish the next day, in order of importance. The next day, you start with task #1 and work on it until it's complete, without moving on. This single-tasking approach promotes deep focus and ensures you are always working on what matters most.</p>
             <hr>
             <h1>Application Features</h1>
-            <p><b>&bull; Dashboard:</b> Get a live overview of your task statistics and Pomodoro status.</p>
-            <p><b>&bull; Pomodoro Timer:</b> Use a built-in timer for focused work sessions.</p>
-            <p><b>&bull; Auto-Save:</b> All data is saved automatically when you close the application.</p>
+            
+            <h2>&bull; Dashboard</h2>
+            <p>Your central hub for at-a-glance information. It provides a real-time summary of your overall progress by calculating the completion percentage across all productivity methods you are using. It also displays the current status of your Pomodoro timer.</p>
+            
+            <h2>&bull; Pomodoro Timer</h2>
+            <p>A built-in timer based on the Pomodoro Technique. Work in focused 25-minute intervals, followed by short breaks. This method is scientifically proven to enhance focus and prevent burnout by breaking down large tasks into manageable chunks.</p>
+            
+            <h2>&bull; Auto-Save</h2>
+            <p>Your progress is valuable. The application automatically saves all your task and stat data to local JSON files (`productivity_data.json` and `stats/progress_data.json`) every time you close the window, ensuring your work is never lost.</p>
         """)
         layout.addWidget(help_text)
         return tab
@@ -787,7 +822,9 @@ class ProductivityApp(QMainWindow):
             self.pomodoro_time -= 1
             self.pomodoro_label.setText(f"{self.pomodoro_time // 60:02d}:{self.pomodoro_time % 60:02d}")
         else:
-            if self.pomodoro_timer_running: winsound.MessageBeep(winsound.MB_ICONINFORMATION)
+            if self.pomodoro_timer_running:
+                # winsound.MessageBeep(winsound.MB_ICONINFORMATION) <-- REMOVED
+                pass
             self._stop_pomodoro()
         self._update_dashboard()
 
@@ -814,14 +851,27 @@ class ProductivityApp(QMainWindow):
             self._on_tab_change(self.tab_widget.currentIndex())
 
     def _show_about_dialog(self):
-        QMessageBox.about(self, "About Personal Growth Dashboard", "<b>A Basic Tracker v0.6</b><br><br>A modern toolkit for productivity methods and tracking to improve upon traditional techniques. An integrated system developed by Tanmay Somani. <br> Contact me at my email:tanmaysomani2003@gmail.com")
-
+       QMessageBox.about(self, "About Personal Growth Dashboard",
+            """
+            <h2>Personal Growth Dashboard v0.7</h2>
+            <hr>
+            <p>An integrated dashboard designed to help you organize your tasks, gamify your habits, and achieve your personal development goals.</p>
+            
+            <p><b>Developed by Tanmay Somani.</b></p>
+            
+            <p>
+                <b>Contact & Links:</b><br>
+                Email: <a href="mailto:tanmaysomani2003@gmail.com">tanmaysomani2003@gmail.com</a><br>
+                GitHub: <a href="https://github.com/YourUsername/Dashboard_Growth">Project Repository</a>
+            </p>
+            
+            <p><i>Built with Python and the PyQt6 framework.</i></p>
+            """
+        )
     def closeEvent(self, event):
         self._save_json(self.data, DATA_FILE)
         self._save_json(self.settings, SETTINGS_FILE)
         event.accept()
-
-# --- STYLESHEETS (MODIFIED FOR SPINBOX) ---
 SHARED_STYLES = """
     QGroupBox { font-weight: bold; background-image: none; }
     QPushButton { 
