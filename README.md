@@ -49,7 +49,6 @@ Dashboard.exe (Windows executable, built via PyInstaller)
 ```
 
 ### Author
-
--Tanmay Somani
-- Github: tanmay-somani.github.io
-- Email: [My Mail]("mailto:tanmaysomani2003@gmail.com")
+- **Tanmay Somani**
+- **GitHub:** [tanmay-somani.github.io](https://tanmay-somani.github.io)
+- **Email:** [tanmaysomani2003@gmail.com](mailto:tanmaysomani2003@gmail.com)
