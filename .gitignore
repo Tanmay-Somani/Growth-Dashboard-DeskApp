@@ -2,6 +2,6 @@ settings.json
 productivity_data.json
 today_tasks.json
 venv\
-stats\
-Wallpaper\
+stats\progress_data.json
+Wallpaper\wallpaper.png
 A general Tracker sheets.ico
