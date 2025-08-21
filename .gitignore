@@ -1,7 +1,14 @@
+# Ignore configuration and runtime data
 settings.json
 productivity_data.json
 today_tasks.json
+
+# Ignore Python virtual environment
 venv/
-stats\progress_data.json
-Wallpaper\wallpaper.png
-A general Tracker sheets.ico
+
+# Ignore generated stats and wallpaper folders
+stats/
+Wallpaper/
+
+# Ignore icon file with spaces in the name
+A\ general\ Tracker\ sheets.ico
